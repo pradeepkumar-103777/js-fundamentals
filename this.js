@@ -53,11 +53,11 @@ objt.myFunction(); // logs: 42, not 99
 
 
 //event listeners
-const button = document.getElementById('btn')
+// const button = document.getElementById('btn')
 
-button.addEventListener('click', function() {
-    console.log(this); // logs(in browser): <button>...</button>
-});
+// button.addEventListener('click', function() {
+//     console.log(this); // logs(in browser): <button>...</button>
+// });
 
 
 
@@ -105,6 +105,52 @@ function YetAnotherTimer() {
 const yetAnotherTimer = new YetAnotherTimer();  
 // Logs increasing numbers every second,
 // because we stored `this` in `self` of that current object.
+
+
+
+//call
+function describe(prefix, suffix) {
+    console.log(prefix + this.value + suffix);
+}
+
+const objA = { value: "apple" };
+const objB = { value: "banana" };
+
+describe.call(objA, "This is an ", "."); // Outputs: "This is an apple."
+describe.call(objB, "Here's a ", "!");  // Outputs: "Here's a banana!"
+
+
+
+//apply
+function addNumbers(a, b, c) {
+    return this.base + a + b + c;
+}
+
+const obj2 = { base: 10 };
+
+const result = addNumbers.apply(obj2, [1, 2, 3]);
+console.log(result); // Outputs: 16
+
+
+
+//bind
+const obj3 = {
+    value: 42,
+    getValue: function() {
+      return this.value;
+    }
+  };
+  
+  const unboundGetValue = obj3.getValue;
+  console.log(unboundGetValue()); // undefined or throws error in strict mode
+  
+  const boundGetValue = obj3.getValue.bind(obj3);
+  console.log(boundGetValue()); // 42
+
+
+
+
+
 
 
 
